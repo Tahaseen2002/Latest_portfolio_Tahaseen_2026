@@ -10,17 +10,18 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/tahaseen-shaik/",
   github: "https://github.com/Tahaseen2002",
   resume: "/resume.pdf", // drop your PDF into /public/resume.pdf
-  headshot: "/headshot.png",
-  //  headshot: "/Tahaseen.png",
-  summary: [
-    "Full stack engineer with 3+ years of startup experience building and scaling AI-powered, cloud-native applications — designing end-to-end systems across Next.js, NestJS and React, backed by MongoDB and SQL, with a focus on performance, scalability and automation.",
-    "Right now I'm building with LLMs, AI agents and open-source models: prompt engineering, API-based model consumption and workflow automation. I like owning products, making technical calls and shipping fast.",
-  ],
+  headshot: "/Tahaseen.webp", // compressed copy of Tahaseen.png
+  ogImage: "/Tahaseen.png",
+  // Hero paragraph under the headline
+  intro:
+    "Three years in fast-moving startups taught me to own a product end to end. Today I build with LLMs and AI agents, turning hiring, analytics and release workflows into systems that run themselves.",
+  // Pull quote between current and earlier roles (from your GitHub profile)
+  quote: "I like projects that mix AI, logic and real business workflows, not just fancy UIs.",
   stats: [
     { value: "3+", label: "Years in startups" },
-    { value: "150+", label: "REST APIs shipped" },
-    { value: "50+", label: "Enterprise clients served" },
-    { value: "<50ms", label: "API response time" },
+    { value: "150+", label: "APIs shipped" },
+    { value: "50+", label: "Enterprise clients" },
+    { value: "85%", label: "Less manual analysis" },
   ],
 };
 

@@ -1,19 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MenuIcon, MoonIcon, SunIcon } from "./Icons";
+import { MoonIcon, SunIcon } from "./Icons";
 
 const links = [
-  { id: "about", label: "About" },
-  { id: "experience", label: "Experience" },
+  { id: "work", label: "Work" },
   { id: "projects", label: "Projects" },
-  { id: "skills", label: "Skills" },
+  { id: "toolkit", label: "Toolkit" },
   { id: "contact", label: "Contact" },
 ];
 
-export default function Nav() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
+export default function Nav({ name }: { name: string }) {
+  const [compact, setCompact] = useState(false);
   const [active, setActive] = useState("");
   const [dark, setDark] = useState(false);
 
@@ -25,7 +23,7 @@ export default function Nav() {
         : window.matchMedia("(prefers-color-scheme: dark)").matches,
     );
 
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setCompact(window.scrollY > 40);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -54,34 +52,22 @@ export default function Nav() {
   };
 
   return (
-    <header className={`nav ${scrolled ? "scrolled" : ""}`}>
-      <div className="container nav-inner">
-        <a href="#top" className="brand" onClick={() => setOpen(false)}>
-          Tahaseen<span>.</span>
-        </a>
-        <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-          <nav className={`nav-links ${open ? "open" : ""}`} aria-label="Primary">
+    <header className={`masthead ${compact ? "compact" : ""}`}>
+      <div className="container">
+        <div className="masthead-inner">
+          <p className="kicker">The Portfolio of</p>
+          <a href="#top" className="title serif">
+            {name}
+          </a>
+          <nav aria-label="Sections">
             {links.map((l) => (
-              <a
-                key={l.id}
-                href={`#${l.id}`}
-                className={active === l.id ? "active" : ""}
-                onClick={() => setOpen(false)}
-              >
+              <a key={l.id} href={`#${l.id}`} className={active === l.id ? "active" : ""}>
                 {l.label}
               </a>
             ))}
           </nav>
-          <button className="icon-btn theme-toggle" onClick={toggleTheme} aria-label="Toggle color theme">
+          <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle color theme">
             {dark ? <SunIcon /> : <MoonIcon />}
-          </button>
-          <button
-            className="icon-btn menu-btn"
-            onClick={() => setOpen(!open)}
-            aria-label="Toggle menu"
-            aria-expanded={open}
-          >
-            <MenuIcon />
           </button>
         </div>
       </div>
