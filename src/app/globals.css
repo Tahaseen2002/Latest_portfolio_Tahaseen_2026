@@ -130,7 +130,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 1.8s var(--ease) infinite; }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 var(--accent-soft); } 70% { box-shadow: 0 0 0 10px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
 .tile-stat { grid-column: span 2; }
-.tile-stat .tile-inner { justify-content: flex-end; gap: 4px; }
+.tile-stat .tile-inner { justify-content: space-between; gap: 4px; }
 .tile-stat b { font-size: 52px; line-height: 1; }
 .tile-stat:last-of-type b { color: var(--accent); }
 .tile-stat .stat-label { font-size: 13px; color: var(--muted); line-height: 1.35; }
@@ -141,6 +141,23 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .marquee-track span { font-family: var(--font-serif), serif; font-size: 26px; color: var(--body); display: inline-flex; align-items: center; gap: 36px; white-space: nowrap; }
 .marquee-track span::after { content: "✦"; font-size: 14px; color: var(--accent); }
 @keyframes marquee { to { transform: translateX(-50%); } }
+/* Desktop: the whole intro fills exactly one screen (above the fold).
+   Rows: big intro + photo stretch to fill, then stats, then the tech strip.
+   Sizes scale with screen height so short laptops still fit everything. */
+@media (min-width: 1001px) {
+  .bento { min-height: calc(100svh - 69px); grid-template-rows: minmax(0, 1fr) auto auto; gap: 12px; padding: 12px 0 16px; }
+  .tile-intro { grid-row: 1; }
+  .tile-photo { grid-row: 1; min-height: 0; }
+  .tile-intro .tile-inner { padding: clamp(18px, 3vh, 48px) clamp(28px, 3.2vw, 52px); gap: clamp(8px, 1.8vh, 20px); }
+  .tile-intro h1 { font-size: clamp(36px, min(5.4vw, 7.6vh), 84px); }
+  .lead { font-size: clamp(14px, 1.8vh, 17px); line-height: 1.55; }
+  .tile-now .tile-inner, .tile-stat .tile-inner { padding: clamp(10px, 1.8vh, 24px) clamp(16px, 1.6vw, 24px); gap: clamp(2px, 0.8vh, 8px); }
+  .now-title { font-size: clamp(20px, 3vh, 30px); }
+  .tile-stat b { font-size: clamp(30px, 4.8vh, 52px); }
+  .marquee { padding: clamp(6px, 1.2vh, 14px) 0; }
+  .marquee-track span { font-size: clamp(17px, 2.4vh, 26px); }
+}
+
 @media (max-width: 1000px) {
   .tile-intro, .tile-photo, .tile-now { grid-column: 1 / -1; grid-row: auto; }
   .tile-photo { min-height: 0; aspect-ratio: 4 / 3; }

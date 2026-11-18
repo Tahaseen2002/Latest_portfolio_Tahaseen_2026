@@ -29,7 +29,7 @@ export default function Home() {
       <main className="container page">
         {/* ---------- Intro: bento grid ---------- */}
         <section id="top" className="bento" aria-label="Introduction">
-          <Reveal className="tile tile-intro">
+          <Reveal onLoad className="tile tile-intro">
             <Spotlight className="tile-inner">
               <p className="status">Open to full-stack &amp; AI engineering roles</p>
               <h1 className="serif">
@@ -51,7 +51,7 @@ export default function Home() {
             </Spotlight>
           </Reveal>
 
-          <Reveal className="tile tile-photo" delay={100}>
+          <Reveal onLoad className="tile tile-photo" delay={100}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={profile.headshot} alt={`Portrait of ${profile.name}`} />
             <p className="photo-tag">
@@ -63,7 +63,7 @@ export default function Home() {
           </Reveal>
 
           {current && (
-            <Reveal className="tile tile-now" delay={150}>
+            <Reveal onLoad className="tile tile-now" delay={150}>
               <Spotlight className="tile-inner">
                 <p className="mono-label">
                   <span className="pulse" aria-hidden="true" /> Now building
@@ -75,7 +75,7 @@ export default function Home() {
           )}
 
           {profile.stats.map((s, i) => (
-            <Reveal key={s.label} className="tile tile-stat" delay={200 + i * 60}>
+            <Reveal onLoad key={s.label} className="tile tile-stat" delay={200 + i * 60}>
               <Spotlight className="tile-inner">
                 <b className="serif">
                   <Counter value={s.value} />
@@ -85,7 +85,7 @@ export default function Home() {
             </Reveal>
           ))}
 
-          <Reveal className="tile tile-marquee" delay={300}>
+          <Reveal onLoad className="tile tile-marquee" delay={300}>
             <div className="marquee" aria-label="Technologies I use">
               <div className="marquee-track">
                 {[...marquee, ...marquee].map((m, i) => (
