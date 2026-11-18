@@ -14,14 +14,13 @@ export const profile = {
   ogImage: "/Tahaseen.png",
   // Hero paragraph under the headline
   intro:
-    "Three years in fast-moving startups taught me to own a product end to end. Today I build with LLMs and AI agents, turning hiring, analytics and release workflows into systems that run themselves.",
-  // Pull quote between current and earlier roles (from your GitHub profile)
-  quote: "I like projects that mix AI, logic and real business workflows, not just fancy UIs.",
+    "3+ years building full-stack and AI products, at work and on my own: AI assessment platforms, release automation, conversational analytics, an ATS and developer tools.",
+  // Numbers band under the hero (the last one is shown in the accent colour)
   stats: [
-    { value: "3+", label: "Years in startups" },
-    { value: "150+", label: "APIs shipped" },
-    { value: "50+", label: "Enterprise clients" },
-    { value: "85%", label: "Less manual analysis" },
+    { value: "3+", label: "Years building products" },
+    { value: "21", label: "Public repositories" },
+    { value: "6", label: "Live demos on Vercel" },
+    { value: "8", label: "AI analyses in Pulsevo" },
   ],
 };
 
@@ -122,61 +121,6 @@ export const experience: Job[] = [
       "Migrated legacy internal portals to Next.js and contributed React Native features.",
       "Earned a full-time offer for code quality and proactive UI improvements.",
     ],
-  },
-];
-
-export type Project = {
-  title: string;
-  description: string;
-  points: string[];
-  stack: string[];
-  link?: string;
-};
-
-export const projects: Project[] = [
-  {
-    title: "Assessment AI Portal",
-    description:
-      "AI-first hiring assessments for campus placements: AI grades the answers, proctors the test and verifies identity.",
-    points: [
-      "LLM-based answer evaluation and scoring",
-      "AI proctoring and cheating detection",
-      "AI candidate identity matching",
-      "Connect your own AI provider API keys",
-    ],
-    stack: ["LLM APIs", "AI Proctoring", "Next.js", "TypeScript"],
-  },
-  {
-    title: "Talk2Data",
-    description:
-      "Conversational AI analytics: ask your data a question in plain English and get the SQL, a summary and a chart back.",
-    points: [
-      "LLM-powered natural-language-to-SQL",
-      "AI-generated summaries and auto-picked charts",
-      "Real-time chat and dashboards",
-      "85% less manual analysis effort",
-    ],
-    stack: ["LLM APIs", "Prompt Engineering", "Next.js", "SQL", "MongoDB"],
-  },
-  {
-    title: "Graphical Password Authentication",
-    description:
-      "Image-based login built on the IEEE paper “Cued Click Points for Graphical Password Authentication”.",
-    points: [
-      "Click-point registration with tolerance-based verification",
-      "Interactive Tailwind UI for sign-up and login",
-      "Client-side session handling for the prototype",
-    ],
-    stack: ["React", "TypeScript", "TailwindCSS", "Vercel"],
-    // link: "https://...", // TODO: add live URL
-  },
-  {
-    title: "Dialogflow Chatbot",
-    description:
-      "Conversational assistant for automated user engagement and support, with trained intents and a web front end.",
-    points: ["Intent training & fulfilment", "Embedded web chat interface"],
-    stack: ["Dialogflow", "React"],
-    // link: "https://...", // TODO: add live URL
   },
 ];
 

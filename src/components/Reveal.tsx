@@ -1,42 +1,29 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+// Fades content up as it scrolls into view (once).
+import { motion } from "motion/react";
 
 export default function Reveal({
   children,
   delay = 0,
   className = "",
+  as = "div",
 }: {
   children: React.ReactNode;
   delay?: number;
   className?: string;
+  as?: "div" | "section" | "li";
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0, rootMargin: "0px 0px -60px 0px" },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
+  const Tag = motion[as];
   return (
-    <div
-      ref={ref}
-      className={`reveal ${visible ? "visible" : ""} ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+    <Tag
+      className={className}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "0px 0px -80px 0px" }}
+      transition={{ duration: 0.7, delay: delay / 1000, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
-    </div>
+    </Tag>
   );
 }

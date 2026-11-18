@@ -1,76 +1,91 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { MoonIcon, SunIcon } from "./Icons";
+// Slim top bar + the "thread": a rail on the left that links every section
+// of the page and fills in as you scroll, so the page reads as one journey.
 
-const links = [
-  { id: "work", label: "Work" },
+import { motion, useScroll, useSpring } from "motion/react";
+import { useEffect, useState } from "react";
+import ThemeToggle from "./ThemeToggle";
+
+export const sections = [
+  { id: "top", label: "Intro" },
+  { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
   { id: "toolkit", label: "Toolkit" },
   { id: "contact", label: "Contact" },
 ];
 
-export default function Nav({ name }: { name: string }) {
-  const [compact, setCompact] = useState(false);
-  const [active, setActive] = useState("");
-  const [dark, setDark] = useState(false);
+export default function Nav({ name, resume }: { name: string; resume: string }) {
+  const [active, setActive] = useState("top");
+  const [scrolled, setScrolled] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 24 });
 
   useEffect(() => {
-    const root = document.documentElement;
-    setDark(
-      root.dataset.theme
-        ? root.dataset.theme === "dark"
-        : window.matchMedia("(prefers-color-scheme: dark)").matches,
-    );
-
-    const onScroll = () => setCompact(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > 12);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-
-    const observer = new IntersectionObserver(
+    const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
-      { rootMargin: "-45% 0px -50% 0px" },
+      { rootMargin: "-40% 0px -55% 0px" },
     );
-    links.forEach(({ id }) => {
+    sections.forEach(({ id }) => {
       const el = document.getElementById(id);
-      if (el) observer.observe(el);
+      if (el) io.observe(el);
     });
-
     return () => {
       window.removeEventListener("scroll", onScroll);
-      observer.disconnect();
+      io.disconnect();
     };
   }, []);
 
-  const toggleTheme = () => {
-    const next = dark ? "light" : "dark";
-    document.documentElement.dataset.theme = next;
-    try {
-      localStorage.setItem("theme", next);
-    } catch {}
-    setDark(!dark);
-  };
-
   return (
-    <header className={`masthead ${compact ? "compact" : ""}`}>
-      <div className="container">
-        <div className="masthead-inner">
-          <p className="kicker">The Portfolio of</p>
-          <a href="#top" className="title serif">
-            {name}
+    <>
+      <header className={`topbar ${scrolled ? "scrolled" : ""}`}>
+        <div className="container topbar-inner">
+          <a href="#top" className="brand">
+            <span className="brand-dot" aria-hidden="true" />
+            <span className="serif">{name}</span>
           </a>
-          <nav aria-label="Sections">
-            {links.map((l) => (
-              <a key={l.id} href={`#${l.id}`} className={active === l.id ? "active" : ""}>
-                {l.label}
+          <nav aria-label="Sections" className="topnav">
+            {sections.slice(1).map((s) => (
+              <a key={s.id} href={`#${s.id}`} className={active === s.id ? "on" : ""}>
+                {s.label}
+                {active === s.id && <motion.span layoutId="topnav-pill" className="topnav-pill" />}
               </a>
             ))}
           </nav>
-          <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle color theme">
-            {dark ? <SunIcon /> : <MoonIcon />}
-          </button>
+          <div className="topbar-right">
+            <a className="btn btn-solid pill sm" href={resume} download>
+              Résumé
+            </a>
+            <ThemeToggle className="theme-toggle inline" />
+          </div>
         </div>
-      </div>
-    </header>
+        <motion.div className="topbar-progress" style={{ scaleX: progress }} aria-hidden="true" />
+      </header>
+
+      <nav className="thread" aria-label="Page progress">
+        <div className="thread-line" aria-hidden="true">
+          <motion.div className="thread-fill" style={{ scaleY: progress }} />
+        </div>
+        <ol>
+          {sections.map((s, i) => {
+            const idx = sections.findIndex((x) => x.id === active);
+            const state = i < idx ? "done" : i === idx ? "on" : "";
+            return (
+              <li key={s.id} className={state}>
+                <a href={`#${s.id}`} aria-current={state === "on" ? "true" : undefined}>
+                  <span className="node" aria-hidden="true" />
+                  <span className="thread-label">
+                    <small>{String(i).padStart(2, "0")}</small> {s.label}
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ol>
+      </nav>
+    </>
   );
 }
