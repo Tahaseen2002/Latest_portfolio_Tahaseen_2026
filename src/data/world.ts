@@ -7,7 +7,7 @@
 // Set `image` to "" to fall back to the drawn scene.
 export const scene = {
   image: "/world.webp", // compressed copy of /public/Herosection.png
-  imageNight: "", // optional night version, e.g. "/world-night.webp"
+  imageNight: "/world-night.webp", // night version, revealed by the Night button
   alt: "Illustration of Tahaseen sitting on a hill with a laptop, looking over a glowing path from her government school, past IIIT Nuzvid, FMS Solutions and CodingLimits, to J2W, with a floating island of side projects.",
 };
 

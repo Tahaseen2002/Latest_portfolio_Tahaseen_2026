@@ -492,3 +492,39 @@
 }
 /* labels near the right edge open leftward from their dot */
 .pin.edge-right { align-items: flex-end; translate: calc(-100% + 10px) -100%; }
+
+/* =========================================================
+   Day ↔ Night: circular reveal from the Night button
+   ========================================================= */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) { z-index: 2; }
+.theme-switching *, .theme-switching *::before, .theme-switching *::after { transition: none !important; }
+.world-art img { transition: none; }
+
+/* night chrome: navy glass chips, yellow résumé (like the reference) */
+:root[data-theme="dark"] .chip-brand, :root[data-theme="dark"] .chip-btn { background: rgba(14, 20, 44, 0.72); border-color: rgba(255,255,255,0.12); color: #eef1f8; }
+:root[data-theme="dark"] .theme-chip { color: #fcd34d; }
+:root[data-theme="dark"] .dock { background: rgba(14, 20, 44, 0.75); border-color: rgba(255,255,255,0.1); }
+:root[data-theme="dark"] .dock a { color: #aab3cc; }
+:root[data-theme="dark"] .dock a.on, :root[data-theme="dark"] .dock a:hover { color: #fff; }
+:root[data-theme="dark"] .dock-pill { background: rgba(255,255,255,0.12); }
+:root[data-theme="dark"] .dock .dock-cta { background: #fbbf24; color: #1b1405; }
+:root[data-theme="dark"] .pin.dark .pin-label { background: rgba(10, 14, 32, 0.7); }
+:root[data-theme="dark"] .signpost-text { color: #f6d9a8; text-shadow: 0 0 10px rgba(255, 200, 120, 0.5); }
+:root[data-theme="dark"] .world--art { background: #0b1024; }
+:root[data-theme="dark"] .hint-click { color: #ffe8c2; }
+
+/* =========================================================
+   Wide, short windows (e.g. laptop with tabs + bookmarks bar):
+   crop the painting mostly from the bottom so the labels stay below the headline
+   ========================================================= */
+@media (min-width: 1101px) {
+  .world--art .world-stage { top: calc((100svh - max(100vw, 177.78svh) * 0.5625) * 0.15); translate: 0 0; }
+}
+@media (max-height: 680px) and (min-width: 901px) {
+  .hero-copy { top: 58px; }
+  .hero-hey { font-size: 13px; }
+  .hero-hey img { width: 24px; height: 24px; }
+  .hero-title { margin-top: 4px; font-size: clamp(28px, min(4vw, 7vh), 56px); }
+  .hero-copy .hero-sub { font-size: 13px; margin-top: 6px; }
+}

@@ -5,6 +5,7 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
+import { flushSync } from "react-dom";
 
 const sections = [
   { id: "top", label: "Home" },
@@ -43,13 +44,36 @@ export default function Chrome({ name, resume }: { name: string; resume: string 
     document.getElementById(tourSteps[tour].id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [tour]);
 
-  const toggleNight = () => {
+  // Day ↔ Night with a circle that grows out of the button (View Transitions API).
+  // Browsers without it, or visitors who prefer reduced motion, just switch instantly.
+  const toggleNight = (e: React.MouseEvent<HTMLButtonElement>) => {
     const next = night ? "light" : "dark";
-    document.documentElement.dataset.theme = next;
-    try {
-      localStorage.setItem("theme", next);
-    } catch {}
-    setNight(!night);
+    const apply = () => {
+      document.documentElement.dataset.theme = next;
+      try {
+        localStorage.setItem("theme", next);
+      } catch {}
+      flushSync(() => setNight(!night));
+    };
+    const doc = document as Document & { startViewTransition?: (cb: () => void) => { ready: Promise<void> } };
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!doc.startViewTransition || reduce) return apply();
+
+    const r = e.currentTarget.getBoundingClientRect();
+    const x = r.left + r.width / 2;
+    const y = r.top + r.height / 2;
+    const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    document.documentElement.classList.add("theme-switching");
+    const t = doc.startViewTransition(apply);
+    t.ready
+      .then(() => {
+        const anim = document.documentElement.animate(
+          { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
+          { duration: 1100, easing: "cubic-bezier(0.65, 0, 0.35, 1)", pseudoElement: "::view-transition-new(root)" },
+        );
+        anim.finished.finally(() => document.documentElement.classList.remove("theme-switching"));
+      })
+      .catch(() => document.documentElement.classList.remove("theme-switching"));
   };
 
   return (
@@ -64,7 +88,7 @@ export default function Chrome({ name, resume }: { name: string; resume: string 
             <span className="orb" aria-hidden="true" />
             Take a tour
           </button>
-          <button className="chip-btn" onClick={toggleNight} aria-pressed={night} aria-label={night ? "Switch to day" : "Switch to night"}>
+          <button className="chip-btn theme-chip" onClick={toggleNight} aria-pressed={night} aria-label={night ? "Switch to day" : "Switch to night"}>
             <motion.span key={night ? "sun" : "moon"} initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} aria-hidden="true">
               {night ? "☀" : "☾"}
             </motion.span>
