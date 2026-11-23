@@ -56,7 +56,7 @@ export default function Nav({ name, resume }: { name: string; resume: string }) 
             ))}
           </nav>
           <div className="topbar-right">
-            <a className="btn btn-solid pill sm" href={resume} download>
+            <a className="btn btn-solid pill sm" href={resume} target="_blank" rel="noopener noreferrer">
               Résumé
             </a>
             <ThemeToggle className="theme-toggle inline" />

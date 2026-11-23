@@ -104,7 +104,7 @@ export default function Chrome({ name, resume }: { name: string; resume: string 
             <span>{s.label}</span>
           </a>
         ))}
-        <a href={resume} download className="dock-cta">
+        <a href={resume} target="_blank" rel="noopener noreferrer" className="dock-cta">
           Résumé ↗
         </a>
       </nav>
