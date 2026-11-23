@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Caveat, Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
 import { profile } from "@/data/profile";
 import MotionProvider from "@/components/MotionProvider";
 import "./globals.css";
@@ -13,6 +13,9 @@ const serif = Instrument_Serif({
 });
 const sans = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
+// World homepage: chunky display + handwriting for notes
+const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-display", display: "swap" });
+const hand = Caveat({ subsets: ["latin"], variable: "--font-hand", display: "swap" });
 
 export const metadata: Metadata = {
   title: `${profile.name} — ${profile.role}`,
@@ -37,7 +40,7 @@ const themeScript = `try{var t=localStorage.getItem('theme');if(t)document.docum
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${serif.variable} ${sans.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${serif.variable} ${sans.variable} ${mono.variable} ${display.variable} ${hand.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
