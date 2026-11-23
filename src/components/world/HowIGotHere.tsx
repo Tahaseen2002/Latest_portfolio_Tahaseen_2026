@@ -8,18 +8,23 @@ import { motion, useMotionValueEvent, useScroll, useTransform, type MotionValue 
 import { useRef, useState } from "react";
 import { Mark } from "./Marks";
 
-type Seg = { text: string; mark?: { kind: "highlight" | "circle" | "underline"; color: string }; spark?: boolean };
+type MarkSpec = { kind: "highlight" | "circle" | "underline"; color: string };
+type Seg = { text: string; marks?: MarkSpec[]; spark?: boolean; icon?: "code" | "gear" | "rocket" };
 
 // The story. Wrap a phrase in `mark` to give it a hand-drawn mark.
+// The story. `marks` are layered hand-drawn marks (first = innermost); `icon` adds a
+// little doodle above-right of the phrase; `spark` adds the asterisk burst.
 const story: Seg[] = [
   { text: "I started as a" },
-  { text: "frontend developer,", mark: { kind: "highlight", color: "#93c5fd" } },
-  { text: "moved into backend, then grew" },
-  { text: "full stack.", mark: { kind: "circle", color: "#e5533d" } },
+  { text: "frontend developer,", marks: [{ kind: "highlight", color: "#93c5fd" }], icon: "code" },
+  { text: "moved into" },
+  { text: "backend,", marks: [{ kind: "highlight", color: "#fdba9b" }], icon: "gear" },
+  { text: "then grew" },
+  { text: "full stack.", marks: [{ kind: "circle", color: "#e5533d" }] },
   { text: "Now I build" },
-  { text: "AI-powered", mark: { kind: "highlight", color: "#fde047" }, spark: true },
+  { text: "AI-powered", marks: [{ kind: "highlight", color: "#fde047" }, { kind: "underline", color: "#1b2233" }], spark: true },
   { text: "applications and" },
-  { text: "deploy them myself.", mark: { kind: "underline", color: "#1b2233" } },
+  { text: "deploy them myself.", marks: [{ kind: "highlight", color: "#d8c8ff" }, { kind: "underline", color: "#f0643f" }], icon: "rocket" },
 ];
 
 export default function HowIGotHere({ companies }: { companies: { name: string; color: string; initial: string }[] }) {
@@ -56,13 +61,15 @@ export default function HowIGotHere({ companies }: { companies: { name: string; 
               );
               return (
                 <span key={si}>
-                  {s.mark ? (
-                    <Mark kind={s.mark.kind} color={s.mark.color} delay={0.1}>
-                      {inner}
-                    </Mark>
-                  ) : (
-                    inner
+                  {(s.marks ?? []).reduce<React.ReactNode>(
+                    (acc, m, mi) => (
+                      <Mark kind={m.kind} color={m.color} delay={0.1 + mi * 0.35}>
+                        {acc}
+                      </Mark>
+                    ),
+                    inner,
                   )}
+                  {s.icon && <Doodle kind={s.icon} />}
                   {s.spark && <Sparkle />}{" "}
                 </span>
               );
@@ -162,5 +169,33 @@ function Note({ progress, at, rotate, className, board, children }: { progress: 
       <span className="tape" aria-hidden="true" />
       {children}
     </motion.div>
+  );
+}
+
+// Little hand-drawn doodles that draw themselves in (like the gear in the reference)
+const doodles = {
+  code: { color: "#2563eb", d: "M8 6 L2 12 L8 18 M16 6 L22 12 L16 18 M14 3 L10 21" },
+  gear: { color: "#1b2233", d: "M12 8.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7Z M12 2v3 M12 19v3 M2 12h3 M19 12h3 M4.9 4.9l2.1 2.1 M17 17l2.1 2.1 M4.9 19.1L7 17 M17 7l2.1-2.1" },
+  rocket: { color: "#7c3aed", d: "M5 19c1-3 2-4 4-5 M14 4c3 0 6 3 6 6l-6 6-6-6 6-6Z M9 13l-3-1 3-3 M11 15l1 3 3-3 M15 9.5a1 1 0 1 0 0.01 0" },
+} as const;
+
+function Doodle({ kind }: { kind: keyof typeof doodles }) {
+  const d = doodles[kind];
+  return (
+    <span className="doodle" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none">
+        <motion.path
+          d={d.d}
+          stroke={d.color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          initial={{ pathLength: 0, opacity: 0 }}
+          whileInView={{ pathLength: 1, opacity: 1 }}
+          viewport={{ once: true, margin: "0px 0px -25% 0px" }}
+          transition={{ duration: 0.9, delay: 0.3, ease: [0.65, 0, 0.35, 1] }}
+        />
+      </svg>
+    </span>
   );
 }

@@ -135,7 +135,7 @@ function RegionMap() {
           <path d={`M ${bl.x} ${bl.y} C ${bl.x + 60} ${bl.y - 500}, ${hy.x - 120} ${hy.y + 500}, ${hy.x} ${hy.y}`} />
         </g>
         {/* place names */}
-        <text x={ap.x} y={ap.y + 230} className="jm-district">ANDHRA PRADESH</text>
+        <text x={ap.x} y={ap.y + 230} className="jm-district">MARKAPUR</text>
         <text x={nz.x} y={nz.y + 210} className="jm-district">NUZVID</text>
         <text x={hy.x} y={hy.y + 230} className="jm-district">HYDERABAD</text>
         <text x={ne.x} y={ne.y + 230} className="jm-district">NELLORE</text>
@@ -246,7 +246,9 @@ export default function Journey() {
       want = clamp(want * 0.4, -24, 24) * z;
       bearing += (want - bearing) * (1 - Math.exp(-dt / 0.35));
 
-      worldRef.current!.style.transform = `translate(${sx}px, ${sy}px) rotate(${-bearing}deg) scale(${s}) translate(${-(cx - X0)}px, ${-(cy - Y0)}px)`;
+      const world = worldRef.current;
+      if (!world) return;
+      world.style.transform = `translate(${sx}px, ${sy}px) rotate(${-bearing}deg) scale(${s}) translate(${-(cx - X0)}px, ${-(cy - Y0)}px)`;
       path.style.strokeDashoffset = String(1 - (p >= T1 ? 1 : q));
 
       // project world → screen for the overlays
@@ -329,7 +331,12 @@ export default function Journey() {
                 aria-label={`${s.label}, ${s.place}, ${s.when}`}
               >
                 <span className="jr-pin-head">
-                  <b>{s.initial}</b>
+                  <b>{s.logo ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={s.logo} alt="" />
+                  ) : (
+                    s.initial
+                  )}</b>
                 </span>
                 <span className="jr-pill">{s.label}</span>
               </button>
@@ -345,21 +352,33 @@ export default function Journey() {
 
         <div className="jr-head" ref={headRef}>
           <p className="kicker">The journey</p>
-          <h2>From Andhra Pradesh to building AI in Bengaluru.</h2>
-          <p className="w-sub">Five stops, four cities, one curiosity. Scroll to walk the path.</p>
+          <h2>Engineer by degree, builder by obsession.</h2>
+          <p className="w-sub">Five stops from 2017 to now, from first lines of code to shipping AI. Scroll to walk the path.</p>
         </div>
 
         <div className="jr-compass" aria-hidden="true">
           <div ref={compassRef} className="jr-needle">
-            <span className="n">N</span>
-            <i />
+            <span className="cd n">N</span>
+            <span className="cd e">E</span>
+            <span className="cd s">S</span>
+            <span className="cd w">W</span>
+            <svg viewBox="-10 -30 20 60" className="jr-pointer">
+              <path d="M0 -26 L6 0 L-6 0 Z" fill="#e5533d" />
+              <path d="M0 26 L6 0 L-6 0 Z" fill="#1b2233" />
+              <circle r="2.6" fill="#fff" />
+            </svg>
           </div>
         </div>
 
         {traveling && (
           <motion.article key={stop.id} className="jr-card" style={{ ["--c" as string]: stop.color }} initial={{ opacity: 0, y: 14, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}>
             <header>
-              <span className="jr-logo">{stop.initial}</span>
+              <span className="jr-logo">{stop.logo ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={stop.logo} alt="" />
+              ) : (
+                stop.initial
+              )}</span>
               <span className="jr-who">
                 <b>{stop.label}</b>
                 <small>
@@ -382,6 +401,20 @@ export default function Journey() {
                     <span>{m.label}</span>
                   </div>
                 ))}
+              </div>
+            )}
+            {stop.gallery && (
+              <div className="jr-gallery">
+                <p className="jr-label">Gallery</p>
+                <div className="jr-polas">
+                  {stop.gallery.map((g, gi) => (
+                    <motion.figure key={g.caption} className={g.wide ? "wide" : undefined} initial={{ opacity: 0, y: 10, rotate: 0 }} animate={{ opacity: 1, y: 0, rotate: g.wide ? -1 : [2, -2, 2][gi % 3] }} transition={{ delay: 0.15 + gi * 0.08, type: "spring", stiffness: 260, damping: 20 }} whileHover={{ rotate: 0, y: -4, scale: 1.05 }}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={g.src} alt={g.caption} loading="lazy" style={{ objectPosition: g.pos ?? "50% 50%" }} />
+                      <figcaption className="hand">{g.caption}</figcaption>
+                    </motion.figure>
+                  ))}
+                </div>
               </div>
             )}
             {stop.link && (

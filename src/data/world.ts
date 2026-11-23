@@ -213,14 +213,17 @@ export type JourneyStop = {
   text: string;
   metrics?: { value: string; label: string }[];
   link?: { label: string; href: string };
+  // Real photos shown in the card. Put files in /public/photos. `wide` = a landscape screenshot.
+  gallery?: { src: string; caption: string; pos?: string; wide?: boolean }[];
+  logo?: string; // optional logo image for the card badge and the map pin
 };
 
 // Positions follow real geography (longitude → x, latitude → y), so the route loops.
 export const journey: JourneyStop[] = [
   {
-    id: "school", label: "Andhra Pradesh", when: "Till 2017", place: "Andhra Pradesh", x: 1383, y: 664, color: "#d97706", initial: "AP",
+    id: "school", label: "Markapur", when: "Till 2017", place: "Markapur, Andhra Pradesh", x: 1056, y: 568, color: "#d97706", initial: "M",
     title: "Where it all started.",
-    text: "I grew up and studied in **Andhra Pradesh**, always curious about **how things work**.",
+    text: "I grew up and studied in **Markapur**, Andhra Pradesh, always curious about **how things work**.",
   },
   {
     id: "college", label: "IIIT Nuzvid", when: "2017 – 2023", place: "Nuzvid", x: 1719, y: 274, color: "#7a5aa6", initial: "R",
@@ -233,12 +236,15 @@ export const journey: JourneyStop[] = [
     title: "FMS taught me to ship for real users.",
     text: "I joined through **campus placement** as an intern on enterprise payroll platforms, and grew into a **software engineer** with a full-time offer.",
     metrics: [{ value: "Intern → FTE", label: "full-time offer" }, { value: "3", label: "frameworks shipped in" }],
+    gallery: [{ src: "/photos/fms-id.webp", caption: "My first ID card", pos: "50% 45%" }, { src: "/photos/fms-team.webp", caption: "The FMS team" }],
   },
   {
     id: "codinglimits", label: "CodingLimits", when: "May 2024 – Jul 2025", place: "Nellore", x: 1354, y: 976, color: "#24408e", initial: "C",
     title: "CodingLimits taught me to own a product.",
     text: "I drove full-stack architecture for **Talsy**, a recruitment SaaS, working directly with the founders: APIs, **multi-tenant RBAC** and AI resume parsing.",
     metrics: [{ value: "150+", label: "REST APIs" }, { value: "50+", label: "enterprise clients" }],
+    gallery: [{ src: "/photos/cl-techteam.webp", caption: "The tech team", wide: true }, { src: "/photos/cl-team.webp", caption: "The whole CodingLimits family" }],
+    logo: "/photos/cl-logo.webp",
   },
   {
     id: "j2w", label: "J2W", when: "Dec 2025 – Now", place: "Bengaluru", x: 350, y: 1340, color: "#1f6b4a", initial: "J",
@@ -246,6 +252,7 @@ export const journey: JourneyStop[] = [
     text: "Now building the **Assessment AI Portal**. Before that, on-site at **GE HealthCare** automating release storage, and **Talk2Data**, chat-with-your-data analytics.",
     metrics: [{ value: "3", label: "AI & automation projects" }, { value: "85%", label: "less manual analysis" }],
     link: { label: "See what I built", href: "#work" },
+    gallery: [{ src: "/photos/assessai.webp", caption: "AssessAI, the portal I'm building", wide: true, pos: "0% 0%" }, { src: "/photos/j2w.webp", caption: "Diwali at J2W", pos: "50% 35%" }, { src: "/photos/ge-id.webp", caption: "On-site at GE HealthCare" }],
   },
 ];
 

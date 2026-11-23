@@ -39,17 +39,18 @@ export default function Home() {
 
         <Journey />
 
-        {/* Work: project box + toolkit gift */}
-        <section id="work" className="w-section paper-bg torn">
+        {/* Work: project box */}
+        <section id="work" className="w-section cut">
           <Reveal className="w-head">
             <p className="kicker">Selected work</p>
-            <h2>
-              Things I built, from <Mark kind="underline" color="#e5533d">frontend to deploy.</Mark>
-            </h2>
-            <p className="w-sub">Personal projects, each built solo. Pick a card from the box.</p>
+            <h2 className="wide-h">Things I built, and the numbers behind them.</h2>
+            <p className="w-sub">Personal projects, built solo from frontend to deploy. Pick a card from the box.</p>
           </Reveal>
           <CardBox projects={projects} />
+        </section>
 
+        {/* Skills: toolkit gift, its own sheet */}
+        <section id="skills" className="w-section cut">
           <Reveal className="w-head gift-head">
             <h2>
               Everything I know, <Mark kind="highlight" color="#93c5fd">unwrapped.</Mark>
@@ -60,7 +61,7 @@ export default function Home() {
         </section>
 
         {/* About */}
-        <section id="about" className="w-section torn">
+        <section id="about" className="w-section cut">
           <Reveal className="statement">
             <p className="kicker">About me</p>
             <p className="statement-text">
@@ -76,6 +77,7 @@ export default function Home() {
 
         {/* Contact */}
         <section id="contact" className="w-section sky">
+          <div className="sky-clouds" aria-hidden="true" />
           <Reveal className="w-head center">
             <p className="kicker">Contact</p>
             <h2>
