@@ -1,4 +1,6 @@
 import Chrome from "@/components/world/Chrome";
+import Cursor from "@/components/world/Cursor";
+import SmoothScroll from "@/components/world/SmoothScroll";
 import WorldHero from "@/components/world/WorldHero";
 import Journey from "@/components/world/Journey";
 import HowIGotHere from "@/components/world/HowIGotHere";
@@ -17,6 +19,8 @@ export default function Home() {
   return (
     <div className="w">
       <Chrome name={profile.name} resume={profile.resume} />
+      <Cursor />
+      <SmoothScroll />
 
       <main>
         {/* The hero stays pinned while "How I got here" slides up over it */}

@@ -34,9 +34,40 @@ export type Pin = {
   story: string[];
   metrics: { value: string; label: string }[];
   cta?: { label: string; href: string };
+  photo?: string; // shown on the card (used by the "Me" pointer)
+  milestones?: { year: string; text: string }[];
 };
 
 export const pins: Pin[] = [
+  {
+    id: "me",
+    label: "Me",
+    year: "",
+    x: 23.6,
+    y: 45,
+    color: "#e5533d",
+    initial: "✦",
+    title: "Hi, I'm Tahaseen",
+    role: "Full Stack & AI Engineer · Ongole, India",
+    headline: "3+ years turning ideas into shipped products.",
+    story: [
+      "From a government school in Andhra Pradesh to IIIT Nuzvid, then three companies in three years: FMS Solutions, CodingLimits and now J2W, where I build AI products.",
+    ],
+    photo: "/Tahaseen.webp",
+    metrics: [
+      { value: "3+", label: "years building" },
+      { value: "150+", label: "APIs shipped" },
+      { value: "3", label: "companies" },
+      { value: "21", label: "public repos" },
+    ],
+    milestones: [
+      { year: "2017", text: "Finished 10th at a government school, Andhra Pradesh" },
+      { year: "2023", text: "B.Tech CSE, IIIT Nuzvid · GPA 8.5 · campus placement" },
+      { year: "2023", text: "Joined FMS Solutions as an intern, earned a full-time offer" },
+      { year: "2024", text: "CodingLimits: owned Talsy, 150+ APIs for 50+ enterprise clients" },
+      { year: "2025", text: "J2W: building AI products (Assessment AI, Talk2Data)" },
+    ],
+  },
   {
     id: "school",
     label: "Govt. School",
@@ -185,3 +216,49 @@ export const notes = [
   { id: "interests", kind: "sticky", color: "#bbf7d0", text: "Into data-driven projects, web dev and learning something new every week." },
   { id: "smile", kind: "sticky", color: "#ddd6fe", text: "Good code makes the next developer smile." },
 ] as const;
+
+// ---------- The "Me" card (click the Me label on the map) ----------
+// Swap gallery photos for real ones any time: put the file in /public and change `src`.
+export const meCard = {
+  greeting: "Hey, I'm Tahaseen",
+  identity: ["Full Stack & AI Engineer", "Builder", "Ongole, India"],
+  headline: "I build AI so people don't do it twice.",
+  tabs: [
+    {
+      id: "school",
+      label: "School",
+      items: [
+        { title: "Government school, Andhra Pradesh", text: "10th standard, 2017. Where the curiosity started." },
+        { title: "IIIT Nuzvid (RGUKT)", text: "PUC + B.Tech CSE, 2017–2023. GPA 8.5." },
+        { title: "Campus placement", text: "Walked out of college into my first job at FMS." },
+      ],
+    },
+    {
+      id: "work",
+      label: "Work",
+      items: [
+        { title: "J2W · Now", text: "Building AI products: Assessment AI Portal, Talk2Data." },
+        { title: "CodingLimits · 2024–25", text: "Owned Talsy: 150+ APIs for 50+ enterprise clients." },
+        { title: "FMS Solutions · 2023–24", text: "Intern to engineer. Earned a full-time offer." },
+      ],
+    },
+    {
+      id: "off",
+      label: "Off the clock",
+      items: [
+        { title: "Side projects", text: "21 public repos, 6 live demos. Built solo, end to end." },
+        { title: "Languages", text: "English, Telugu and Hindi." },
+        { title: "Motto", text: "Code → Deploy → Repeat." },
+      ],
+    },
+  ],
+  gallery: [
+    { src: "/Tahaseen.webp", caption: "Me, mid-deploy" },
+    { src: "/world.webp", caption: "My world, by day" },
+    { src: "/world-night.webp", caption: "…and by night" },
+  ],
+  stats: [
+    { value: "3+ yrs", label: "industry experience" },
+    { value: "150+", label: "APIs shipped to production" },
+  ],
+};
