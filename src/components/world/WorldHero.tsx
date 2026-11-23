@@ -112,6 +112,38 @@ export default function WorldHero({ name, avatar }: { name: string; avatar: stri
             ))}
           </div>
 
+          {/* Night only: an owl perched on the tree branch (blinks and turns its head) */}
+          <div className="anchor" ref={anchorRef("owl", 8.6, 11.6, true)} aria-hidden="true">
+            <svg className="owl" viewBox="0 0 60 74" width="50" height="62">
+              <path d="M-14 66 Q 10 62 30 65 T 76 60" stroke="#2a2018" strokeWidth="5" fill="none" strokeLinecap="round" />
+              <path d="M58 61 q6 -6 12 -4" stroke="#2a2018" strokeWidth="3" fill="none" strokeLinecap="round" />
+              <g className="owl-body">
+                <ellipse cx="30" cy="44" rx="17" ry="20" fill="#6b4f3a" />
+                <ellipse cx="30" cy="49" rx="11" ry="13" fill="#c9a77c" />
+                <path d="M24 44 q2 3 4 0 M30 47 q2 3 4 0 M25 52 q2 3 4 0 M31 55 q2 3 4 0" stroke="#8a6a4a" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+                <path d="M13 40 q-3 12 5 20 L18 40 Z" fill="#5a4130" />
+                <path d="M47 40 q3 12 -5 20 L42 40 Z" fill="#5a4130" />
+              </g>
+              <g className="owl-head">
+                <path d="M14 14 L19 24 L41 24 L46 14 L40 19 Q30 13 20 19 Z" fill="#6b4f3a" />
+                <ellipse cx="30" cy="27" rx="17" ry="14" fill="#7a5b43" />
+                <circle cx="23" cy="27" r="7" fill="#f3e3c3" />
+                <circle cx="37" cy="27" r="7" fill="#f3e3c3" />
+                <g className="owl-eyes">
+                  <circle cx="23" cy="27" r="4.2" fill="#f5b82e" />
+                  <circle cx="37" cy="27" r="4.2" fill="#f5b82e" />
+                  <circle cx="23" cy="27" r="2.2" fill="#1a1208" />
+                  <circle cx="37" cy="27" r="2.2" fill="#1a1208" />
+                  <circle cx="24" cy="26" r="0.9" fill="#fff" />
+                  <circle cx="38" cy="26" r="0.9" fill="#fff" />
+                </g>
+                <path className="owl-lids" d="M16 27 a7 7 0 0 1 14 0 Z M30 27 a7 7 0 0 1 14 0 Z M16 27 a7 7 0 0 0 14 0 Z M30 27 a7 7 0 0 0 14 0 Z" fill="#7a5b43" />
+                <path d="M28 31 L30 36 L32 31 Z" fill="#e0a43a" />
+              </g>
+              <path d="M22 63 l-2 4 M25 63 l0 4 M35 63 l0 4 M38 63 l2 4" stroke="#e0a43a" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          </div>
+
           {/* Handwritten signpost on the blank wooden sign */}
           <div className="anchor" ref={anchorRef("signpost", signpost.x, signpost.y, true)}>
             <motion.a className="signpost-text hand" href={signpost.href} data-cursor="Go" style={{ opacity: labelsOpacity }} initial={{ rotate: -4 }} whileHover={{ scale: 1.06, rotate: -2 }}>

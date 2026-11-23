@@ -695,3 +695,20 @@ html.lenis, html.lenis body { height: auto; }
 .me-gallery { grid-template-columns: repeat(3, 112px); justify-content: center; gap: 14px; }
 @media (max-width: 640px) { .me-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; } }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .me-stats > div { background: #2a2438; color: #f6ecd8; } }
+
+/* =========================================================
+   Night: birds go home, an owl comes out
+   ========================================================= */
+.world-overlay .birds { transition: opacity 0.6s; }
+.owl { position: absolute; left: 0; top: 0; translate: -50% -94%; overflow: visible; opacity: 0; transform: scale(0.6); transform-origin: 50% 100%; transition: opacity 0.6s, transform 0.6s; filter: drop-shadow(0 0 10px rgba(255, 220, 150, 0.25)); }
+.owl-head { transform-box: fill-box; transform-origin: 50% 80%; animation: owlLook 9s ease-in-out infinite; }
+.owl-lids { transform-box: fill-box; transform-origin: 50% 50%; transform: scaleY(0); animation: owlBlink 4.5s infinite; }
+@keyframes owlBlink { 0%, 92%, 100% { transform: scaleY(0); } 95% { transform: scaleY(1); } }
+@keyframes owlLook { 0%, 30% { transform: rotate(0); } 36%, 52% { transform: rotate(-14deg); } 58%, 74% { transform: rotate(10deg); } 80%, 100% { transform: rotate(0); } }
+:root[data-theme="dark"] .world-overlay .birds { opacity: 0; }
+:root[data-theme="dark"] .owl { opacity: 1; transform: scale(1); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .world-overlay .birds { opacity: 0; }
+  :root:not([data-theme="light"]) .owl { opacity: 1; transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) { .owl-head, .owl-lids { animation: none; } }
