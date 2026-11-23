@@ -374,13 +374,8 @@
 @media (max-width: 640px) { .world-hint { font-size: 12px; bottom: 82px; } }
 @media (prefers-reduced-motion: reduce) { .signpost-glow { animation: none; } }
 
-/* Illustration mode: on desktop show the WHOLE picture (it has content right
-   at its edges); leftover space is filled with a soft blurred copy of it. */
-.world--art::before { content: ""; position: absolute; inset: -40px; background: var(--world-img) center / cover no-repeat; filter: blur(28px) saturate(1.1) brightness(0.95); transform: scale(1.08); }
-:root[data-theme="dark"] .world--art::before { filter: blur(28px) brightness(0.5) saturate(0.9); }
-@media (min-width: 901px) {
-  .world--art .world-stage { width: min(100vw, 177.78svh); border-radius: 0; box-shadow: 0 0 80px rgba(0, 0, 0, 0.18); }
-}
+/* Illustration mode: the painting always covers the whole screen (no blurred fill) */
+.world--art { background: #f3c9a8; }
 
 /* =========================================================
    Hero → "How I got here": the hero pins, the paper sheet slides over it
@@ -487,3 +482,13 @@
 :root[data-theme="dark"] .hero-sub, :root[data-theme="dark"] .hero-hey { color: #f3e2d2; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7); }
 .hero-copy .hero-sub { max-width: 680px; }
 @media (max-height: 800px) and (min-width: 901px) { .hero-copy { top: 64px; } .hero-copy .hero-sub { font-size: 15px; margin-top: 8px; } }
+/* Crop more from the right than the left so the signpost stays in view */
+@media (min-width: 1101px) {
+  .world--art .world-stage { left: calc((100vw - max(100vw, 177.78svh)) * 0.3); translate: 0 -50%; }
+}
+@media (max-width: 1100px) and (min-width: 901px) {
+  .world--art .world-viewport { overflow-x: auto; scrollbar-width: none; }
+  .world--art .world-stage { position: relative; left: 0; top: 0; translate: none; width: 177.78svh; height: 100svh; aspect-ratio: auto; }
+}
+/* labels near the right edge open leftward from their dot */
+.pin.edge-right { align-items: flex-end; translate: calc(-100% + 10px) -100%; }

@@ -47,7 +47,10 @@ export default function WorldHero({ name, avatar }: { name: string; avatar: stri
   // On phones the world is wider than the screen: start centred
   useEffect(() => {
     const el = viewport.current;
-    if (el && el.scrollWidth > el.clientWidth) el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2;
+    if (!el) return;
+    // Only the swipeable layouts (≤1100px) scroll sideways; desktop crop is handled in CSS
+    if (window.matchMedia("(max-width: 1100px)").matches && el.scrollWidth > el.clientWidth) el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2;
+    else el.scrollLeft = 0;
   }, []);
 
   const first = name.split(" ").pop();
@@ -204,7 +207,7 @@ export default function WorldHero({ name, avatar }: { name: string; avatar: stri
 function PinButton({ pin, index, active, dimmed, disabled, onOpen }: { pin: Pin; index: number; active: boolean; dimmed: boolean; disabled: boolean; onOpen: () => void }) {
   return (
     <motion.button
-      className={`pin dark ${active ? "active" : ""}`}
+      className={`pin dark ${pin.x > 85 ? "edge-right" : ""} ${active ? "active" : ""}`}
       style={{ left: `${pin.x}%`, top: `${pin.y}%`, pointerEvents: disabled ? "none" : undefined }}
       initial={{ opacity: 0, y: 14, scale: 0.8 }}
       animate={{ opacity: dimmed ? 0.4 : 1, y: 0, scale: 1 }}
