@@ -198,13 +198,55 @@ export const pins: Pin[] = [
 export const signpost = { x: 8.1, y: 63, href: "#journey", label: "Explore my journey" };
 
 // ---------- Journey map ----------
-// Positions are in the map's own 1000 × 560 coordinate space.
-export const journey = [
-  { id: "school", label: "Govt. School", when: "Till 2017", x: 110, y: 430, color: "#d97706", text: "10th standard at a government school in Andhra Pradesh. A small beginning, and a big curiosity." },
-  { id: "college", label: "IIIT Nuzvid", when: "2017 – 2023", x: 300, y: 330, color: "#7a5aa6", text: "Pre-university + B.Tech in Computer Science & Engineering at RGUKT Nuzvid · GPA 8.5." },
-  { id: "fms", label: "FMS Solutions", when: "Jun 2023 – Apr 2024", x: 500, y: 400, color: "#c26a3a", text: "Joined through campus placement. Intern to software engineer on enterprise payroll and labor-analytics platforms." },
-  { id: "codinglimits", label: "CodingLimits", when: "May 2024 – Jul 2025", x: 700, y: 300, color: "#24408e", text: "Owned full-stack delivery of Talsy: 150+ APIs, multi-tenant RBAC, AI resume parsing." },
-  { id: "j2w", label: "J2W", when: "Dec 2025 – Present", x: 890, y: 170, color: "#1f6b4a", text: "Building AI solutions: Assessment AI Portal, GE HealthCare LTS automation and Talk2Data." },
+// Stops on the illustrated city map. x / y are in the map's own 2000 × 1400 space.
+// In `text`, wrap a phrase in **double stars** to make it bold + underlined.
+export type JourneyStop = {
+  id: string;
+  label: string;
+  when: string;
+  place: string;
+  x: number;
+  y: number;
+  color: string;
+  initial: string;
+  title: string;
+  text: string;
+  metrics?: { value: string; label: string }[];
+  link?: { label: string; href: string };
+};
+
+// Positions follow real geography (longitude → x, latitude → y), so the route loops.
+export const journey: JourneyStop[] = [
+  {
+    id: "school", label: "Andhra Pradesh", when: "Till 2017", place: "Andhra Pradesh", x: 1383, y: 664, color: "#d97706", initial: "AP",
+    title: "Where it all started.",
+    text: "I grew up and studied in **Andhra Pradesh**, always curious about **how things work**.",
+  },
+  {
+    id: "college", label: "IIIT Nuzvid", when: "2017 – 2023", place: "Nuzvid", x: 1719, y: 274, color: "#7a5aa6", initial: "R",
+    title: "Where I learned how systems are built.",
+    text: "Six years at **RGUKT Nuzvid**: pre-university, then a B.Tech in **Computer Science & Engineering**. I graduated with a campus placement in hand.",
+    metrics: [{ value: "8.5", label: "GPA" }, { value: "2023", label: "graduated" }],
+  },
+  {
+    id: "fms", label: "FMS Solutions", when: "Jun 2023 – Apr 2024", place: "Hyderabad", x: 724, y: 106, color: "#c26a3a", initial: "F",
+    title: "FMS taught me to ship for real users.",
+    text: "I joined through **campus placement** as an intern on enterprise payroll platforms, and grew into a **software engineer** with a full-time offer.",
+    metrics: [{ value: "Intern → FTE", label: "full-time offer" }, { value: "3", label: "frameworks shipped in" }],
+  },
+  {
+    id: "codinglimits", label: "CodingLimits", when: "May 2024 – Jul 2025", place: "Nellore", x: 1354, y: 976, color: "#24408e", initial: "C",
+    title: "CodingLimits taught me to own a product.",
+    text: "I drove full-stack architecture for **Talsy**, a recruitment SaaS, working directly with the founders: APIs, **multi-tenant RBAC** and AI resume parsing.",
+    metrics: [{ value: "150+", label: "REST APIs" }, { value: "50+", label: "enterprise clients" }],
+  },
+  {
+    id: "j2w", label: "J2W", when: "Dec 2025 – Now", place: "Bengaluru", x: 350, y: 1340, color: "#1f6b4a", initial: "J",
+    title: "J2W is where I build AI that does real work.",
+    text: "Now building the **Assessment AI Portal**. Before that, on-site at **GE HealthCare** automating release storage, and **Talk2Data**, chat-with-your-data analytics.",
+    metrics: [{ value: "3", label: "AI & automation projects" }, { value: "85%", label: "less manual analysis" }],
+    link: { label: "See what I built", href: "#work" },
+  },
 ];
 
 // ---------- Corkboard ----------

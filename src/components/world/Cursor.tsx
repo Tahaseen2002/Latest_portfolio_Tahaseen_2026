@@ -34,6 +34,17 @@ export default function Cursor() {
       setVisible(!!t?.closest?.(".world, [data-cursor]"));
     };
     const onLeave = () => setVisible(false);
+    // scrolling moves the page under a still mouse: re-check what's under it
+    let lx = -1, ly = -1;
+    const onScroll = () => {
+      if (lx < 0) return;
+      const t = document.elementFromPoint(lx, ly);
+      setLabel(t?.closest?.("[data-cursor]")?.getAttribute("data-cursor") || null);
+      setVisible(!!t?.closest?.(".world, [data-cursor]"));
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    const track = (e: PointerEvent) => { lx = e.clientX; ly = e.clientY; };
+    window.addEventListener("pointermove", track, { passive: true });
     // After a click the page under the cursor often changes (a card opens, a page grows): re-check
     const onClick = (e: MouseEvent) => {
       setLabel(null);
@@ -49,6 +60,8 @@ export default function Cursor() {
     return () => {
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("click", onClick, true);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("pointermove", track);
       document.removeEventListener("pointerleave", onLeave);
       document.documentElement.classList.remove("has-cursor");
     };
