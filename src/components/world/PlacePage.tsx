@@ -67,7 +67,7 @@ export default function PlacePage({ pin, index, total, onClose, onNext, nextTitl
             <motion.article key={e.name} className="place-block" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
               <div className="place-block-head">
                 <h2>{e.name}</h2>
-                <span className={`badge ${e.status === "Current" ? "live" : ""}`}>{e.status}</span>
+                <span className={`badge ${e.status === "Current" || e.status === "In use" ? "live" : ""}`}>{e.status}</span>
               </div>
               <p>{e.summary}</p>
               <ul className="place-points">

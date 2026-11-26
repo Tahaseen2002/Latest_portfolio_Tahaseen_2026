@@ -7,10 +7,11 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { flushSync } from "react-dom";
 
-const sections = [
+const sections: { id: string; label: string; short?: string }[] = [
   { id: "top", label: "Home" },
   { id: "journey", label: "Journey" },
-  { id: "work", label: "Work" },
+  { id: "experience", label: "Experience", short: "Jobs" },
+  { id: "work", label: "Projects" },
   { id: "about", label: "About" },
   { id: "contact", label: "Contact" },
 ];
@@ -18,6 +19,7 @@ const sections = [
 const tourSteps = [
   { id: "top", title: "Welcome to my world", text: "Each glowing pin is a chapter of my career. Click one to open its story." },
   { id: "journey", title: "The journey", text: "Scroll to travel the route from college to my current role, one stop at a time." },
+  { id: "experience", title: "On the job", text: "One case file per company: what I built there, for whom, and what it achieved." },
   { id: "work", title: "The project box", text: "Pick a card to see a personal project, then open its full case study." },
   { id: "about", title: "About me", text: "Drag the notes around. They're a little messy, like any good desk." },
   { id: "contact", title: "Say hello", text: "Press E, L, G or R on your keyboard, or click a key." },
@@ -99,9 +101,16 @@ export default function Chrome({ name, resume }: { name: string; resume: string 
 
       <nav className="dock" aria-label="Sections">
         {sections.map((s) => (
-          <a key={s.id} href={`#${s.id}`} className={active === s.id ? "on" : ""} aria-current={active === s.id ? "true" : undefined}>
+          <a key={s.id} href={`#${s.id}`} className={`${active === s.id ? "on" : ""} dock-${s.id}`} aria-current={active === s.id ? "true" : undefined}>
             {active === s.id && <motion.span layoutId="dock-pill" className="dock-pill" transition={{ type: "spring", stiffness: 400, damping: 32 }} />}
-            <span>{s.label}</span>
+            {s.short ? (
+              <>
+                <span className="dock-full">{s.label}</span>
+                <span className="dock-short">{s.short}</span>
+              </>
+            ) : (
+              <span>{s.label}</span>
+            )}
           </a>
         ))}
         <a href={resume} target="_blank" rel="noopener noreferrer" className="dock-cta">

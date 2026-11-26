@@ -14,7 +14,7 @@ export const profile = {
   ogImage: "/Tahaseen.png",
   // Hero paragraph under the headline
   intro:
-    "3+ years building full-stack and AI products, at work and on my own: AI assessment platforms, release automation, conversational analytics, an ATS and developer tools.",
+    "3+ years building full-stack and AI products, at work and on my own: AI recruitment and assessment platforms, release automation, conversational analytics, an ATS and developer tools.",
   // Numbers band under the hero (the last one is shown in the accent colour)
   stats: [
     { value: "3+", label: "Years building products" },
@@ -47,15 +47,27 @@ export const experience: Job[] = [
     company: "J2W",
     period: "Dec 2025 – Present",
     intro:
-      "Delivering AI-powered products and client projects, from internal platforms to on-site work with enterprise clients.",
+      "Building the AI products J2W's recruitment runs on, from in-house recruiter tools to campus assessments, plus on-site work with enterprise clients.",
     stack: ["TypeScript", "Python", "Groovy", "JFrog Artifactory", "SQL", "MongoDB", "React", "Next.js", "LLM APIs"],
     highlights: [],
     engagements: [
       {
-        name: "Assessment AI Portal",
-        status: "Current",
+        name: "Talos (formerly TalentSphere)",
+        status: "In use",
         summary:
-          "An AI-first assessment platform for campus placement hiring. AI scores candidates, proctors them and verifies who they are, from test to final result.",
+          "J2W's in-house AI recruitment platform, now used by its recruiters: resume and job matching, AI screening, AI-generated interview questions, and AI evaluation and scoring of candidates.",
+        points: [
+          "Resume and job matching: AI reads each resume and ranks it against open roles.",
+          "AI screening shortlists candidates before a recruiter steps in.",
+          "AI generates interview questions tailored to the role and the candidate.",
+          "AI evaluates answers and scores every candidate consistently.",
+        ],
+      },
+      {
+        name: "Assessment AI Portal (AssessAI)",
+        status: "Shipped",
+        summary:
+          "An AI-first assessment platform, used to run campus hiring for VIT (assessai.joulestowatts.com). AI scores candidates, proctors them and verifies who they are, from test to final result.",
         points: [
           "AI evaluation engine: LLMs grade candidate answers against the question bank and produce scores with reasoning, replacing manual grading.",
           "AI proctoring: models monitor test sessions to flag cheating and suspicious behaviour in real time.",

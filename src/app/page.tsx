@@ -5,6 +5,7 @@ import WorldHero from "@/components/world/WorldHero";
 import Journey from "@/components/world/Journey";
 import HowIGotHere from "@/components/world/HowIGotHere";
 import CardBox from "@/components/world/CardBox";
+import CaseFiles from "@/components/world/CaseFiles";
 import GiftSkills from "@/components/world/GiftSkills";
 import Corkboard from "@/components/world/Corkboard";
 import KeyboardContact from "@/components/world/KeyboardContact";
@@ -38,6 +39,16 @@ export default function Home() {
         </div>
 
         <Journey />
+
+        {/* Experience: what I did at each company, as case files */}
+        <section id="experience" className="w-section cut">
+          <Reveal className="w-head">
+            <p className="kicker">On the job</p>
+            <h2 className="wide-h">What I built for the companies I worked at.</h2>
+            <p className="w-sub">Three companies, six industries, and the projects behind them. Pick a badge.</p>
+          </Reveal>
+          <CaseFiles />
+        </section>
 
         {/* Work: project box */}
         <section id="work" className="w-section cut">

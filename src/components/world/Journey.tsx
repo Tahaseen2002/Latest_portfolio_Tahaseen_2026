@@ -428,8 +428,8 @@ export default function Journey() {
           <motion.article key="end" className="jr-card jr-end" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
             <p className="kicker">That&apos;s the path so far</p>
             <h3>Four cities. One curiosity.</h3>
-            <a href="#work" className="w-btn dark">
-              Next: what I built →
+            <a href="#experience" className="w-btn dark">
+              Next: what I did there →
             </a>
           </motion.article>
         )}

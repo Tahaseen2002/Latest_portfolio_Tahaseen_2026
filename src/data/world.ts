@@ -65,7 +65,7 @@ export const pins: Pin[] = [
       { year: "2023", text: "B.Tech CSE, IIIT Nuzvid · GPA 8.5 · campus placement" },
       { year: "2023", text: "Joined FMS Solutions as an intern, earned a full-time offer" },
       { year: "2024", text: "CodingLimits: owned Talsy, 150+ APIs for 50+ enterprise clients" },
-      { year: "2025", text: "J2W: building AI products (Assessment AI, Talk2Data)" },
+      { year: "2025", text: "J2W: shipped AssessAI for VIT hiring; built Talos, the recruiters' AI platform" },
     ],
   },
   {
@@ -163,11 +163,12 @@ export const pins: Pin[] = [
     role: "Software Engineer (Full Stack & AI) · Building AI solutions",
     headline: "J2W is where I build AI that does real work.",
     story: [
-      "Now: the Assessment AI Portal, where AI grades answers, proctors tests and verifies candidates for campus hiring.",
-      "Before that: on-site at GE HealthCare automating long-term artifact storage with Groovy pipelines, and Talk2Data, a chat-with-your-data analytics tool.",
+      "Talos (formerly TalentSphere): J2W's in-house AI recruitment platform for resume matching, screening, interview questions and scoring. Recruiters use it every day.",
+      "AssessAI: AI grades answers, proctors tests and verifies candidates. Shipped and used for VIT campus hiring.",
+      "Also: on-site at GE HealthCare automating long-term artifact storage with Groovy pipelines, and Talk2Data, a chat-with-your-data analytics tool.",
     ],
     metrics: [
-      { value: "3", label: "AI & automation projects" },
+      { value: "4", label: "AI & automation projects" },
       { value: "85%", label: "less manual analysis" },
     ],
     cta: { label: "See the journey", href: "#journey" },
@@ -249,10 +250,10 @@ export const journey: JourneyStop[] = [
   {
     id: "j2w", label: "J2W", when: "Dec 2025 – Now", place: "Bengaluru", x: 350, y: 1340, color: "#1f6b4a", initial: "J",
     title: "J2W is where I build AI that does real work.",
-    text: "Now building the **Assessment AI Portal**. Before that, on-site at **GE HealthCare** automating release storage, and **Talk2Data**, chat-with-your-data analytics.",
-    metrics: [{ value: "3", label: "AI & automation projects" }, { value: "85%", label: "less manual analysis" }],
-    link: { label: "See what I built", href: "#work" },
-    gallery: [{ src: "/photos/assessai.webp", caption: "AssessAI, the portal I'm building", wide: true, pos: "0% 0%" }, { src: "/photos/j2w.webp", caption: "Diwali at J2W", pos: "50% 35%" }, { src: "/photos/ge-id.webp", caption: "On-site at GE HealthCare" }],
+    text: "Built **Talos**, the AI recruitment platform J2W's recruiters use daily, and shipped **AssessAI** for **VIT** campus hiring. Also on-site at **GE HealthCare**, and **Talk2Data** analytics.",
+    metrics: [{ value: "4", label: "AI & automation projects" }, { value: "85%", label: "less manual analysis" }],
+    link: { label: "See what I built here", href: "#experience" },
+    gallery: [{ src: "/photos/assessai.webp", caption: "AssessAI, used for VIT hiring", wide: true, pos: "0% 0%" }, { src: "/photos/j2w.webp", caption: "Diwali at J2W", pos: "50% 35%" }, { src: "/photos/ge-id.webp", caption: "On-site at GE HealthCare" }],
   },
 ];
 
@@ -286,7 +287,7 @@ export const meCard = {
       id: "work",
       label: "Work",
       items: [
-        { title: "J2W · Now", text: "Building AI products: Assessment AI Portal, Talk2Data." },
+        { title: "J2W · Now", text: "Built Talos and shipped AssessAI (VIT hiring), plus GE HealthCare and Talk2Data." },
         { title: "CodingLimits · 2024–25", text: "Owned Talsy: 150+ APIs for 50+ enterprise clients." },
         { title: "FMS Solutions · 2023–24", text: "Intern to engineer. Earned a full-time offer." },
       ],
